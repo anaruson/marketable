@@ -15,18 +15,26 @@ module Marketable
     recurrence { daily }
 
     DOMAINS_PATH = '/Users/ahti/Downloads/domain-list-V1-21022019.txt'
+    EXCLUDED_DOMAINS = %w[blogspot.com tumblr.com typepad.com wordpress.com withgoogle.com amazonaws.com github.io].freeze
 
     def perform
-      #binding.pry
       domains = read_file(DOMAINS_PATH)
 
       domains.each do |domain|
+        next if excluded?(domain)
+
         Rails.logger.info "Submit job for domain #{domain}"
         ::Marketable::WhoisWorker.perform_async(domain)
+      rescue JSON::GeneratorError
+        Rails.logger.warn "Domain name #{domain} is malformed"
       end
     end
 
     private
+
+    def excluded?(domain)
+      EXCLUDED_DOMAINS.any? { |d| domain.include?(d) }
+    end
 
     def read_file(file_path)
       data = Array.new
