@@ -1,0 +1,13 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: marketable_development
+  pool: 5
+  username: marketable
+  password: marketable
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: marketable_production
+  pool: 5
