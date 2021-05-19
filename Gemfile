@@ -7,7 +7,7 @@ gem 'rails', '~> 5.2'
 gem 'pg'
 gem 'sidekiq'
 gem 'sidetiq'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 
